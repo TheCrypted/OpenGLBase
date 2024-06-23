@@ -72,12 +72,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Aman%27s Laptop\Downloads\JaneStreet\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Aman%27s Laptop\Downloads\JaneStreet\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Aman%27s Laptop\Downloads\OpenGL\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Aman%27s Laptop\Downloads\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Aman%27s Laptop\Downloads\JaneStreet\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Aman%27s Laptop\Downloads\JaneStreet\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Aman%27s Laptop\Downloads\OpenGL\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Aman%27s Laptop\Downloads\OpenGL\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -161,6 +161,9 @@
   <ItemGroup>
     <None Include="default.frag" />
     <None Include="default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\img_txt.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
