@@ -146,6 +146,7 @@
     <ClInclude Include="..\..\CLionProjects\JaneStreet\Libraries\include\KHR\khrplatform.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ShaderClass.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="stb.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
@@ -163,7 +165,8 @@
     <None Include="default.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\img_txt.jpg" />
+    <Image Include="img_txt.png" />
+    <Image Include="pop_cat.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
