@@ -48,6 +48,34 @@ int main()
 		3, 0, 4
 	};
 
+	GLfloat lightVertices[] =
+	{ //     COORDINATES     //
+		-0.1f, -0.1f,  0.1f,
+		-0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f, -0.1f,
+		 0.1f, -0.1f,  0.1f,
+		-0.1f,  0.1f,  0.1f,
+		-0.1f,  0.1f, -0.1f,
+		 0.1f,  0.1f, -0.1f,
+		 0.1f,  0.1f,  0.1f
+	};
+
+	GLuint lightIndices[] =
+	{
+		0, 1, 2,
+		0, 2, 3,
+		0, 4, 7,
+		0, 7, 3,
+		3, 7, 6,
+		3, 6, 2,
+		2, 6, 5,
+		2, 5, 1,
+		1, 5, 4,
+		1, 4, 0,
+		4, 5, 6,
+		4, 6, 7
+	};
+
 	int width = 800, height = 800;
 
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
@@ -85,6 +113,35 @@ int main()
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+
+	Shader lightShader("light.vert", "light.frag");
+
+	VAO lightVAO;
+	lightVAO.Bind();
+
+	VBO lightVBO(lightVertices, sizeof(lightVertices));
+	EBO lightEBO(lightIndices, sizeof(lightIndices));
+
+	lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3*sizeof(float), (void*)0);
+	lightVAO.Unbind();
+	lightVBO.Unbind();
+	lightEBO.Unbind();
+
+	glm::vec3 lightPos(0.5f, 1.5f, 0.5f);
+	glm::mat4 lightModel(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
+
+	glm::vec3 cubePos(0.0f, 0.0f, 0.0f);
+	glm::mat4 cubeModel(1.0f);
+	cubeModel = glm::translate(cubeModel, cubePos);
+
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+
+
+	shaderProgram.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(cubeModel));
+
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 	Texture tex("img_txt.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
@@ -104,8 +161,6 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Take care of all GLFW events
 
-		shaderProgram.Activate();
-
 		if(glfwGetTime() - prevTime >= 0.01)
 		{
 			prevTime = glfwGetTime();
@@ -113,14 +168,25 @@ int main()
 			if(rotation >= 360)
 				rotation = 0;
 		}
+
 		cam.Inputs(window);
-		cam.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+		cam.UpdateMatrix(45.0f, 0.1f, 100.0f);
+
+		shaderProgram.Activate();
+
+		cam.Matrix(shaderProgram, "camMatrix");
 
 		glUniform1f(uniID, 0.5f);
 
 		tex.Bind();
 		VAO1.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+		lightShader.Activate();
+		cam.Matrix(lightShader, "camMatrix");
+		lightVAO.Bind();
+		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
