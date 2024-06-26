@@ -113,7 +113,7 @@ int main()
 			if(rotation >= 360)
 				rotation = 0;
 		}
-		
+		cam.Inputs(window);
 		cam.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
 		glUniform1f(uniID, 0.5f);
