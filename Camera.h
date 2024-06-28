@@ -23,7 +23,7 @@ class Camera
 		int width;
 		int height;
 
-		float speed = 0.01f;
+		float speed = 0.005f;
 		float sensitivity = 100.0f;
 
 		bool firstClick = true;

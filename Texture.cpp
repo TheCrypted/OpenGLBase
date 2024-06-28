@@ -18,7 +18,7 @@ Texture::Texture(const char* img, GLenum texType, GLuint slot, GLenum format, GL
 	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexImage2D(type, 0, format, width, height, 0, format, pixelType, bytes);
+	glTexImage2D(type, 0, GL_RGBA, width, height, 0, format, pixelType, bytes);
 
 	glGenerateMipmap(type);
 	stbi_image_free(bytes);
